@@ -30,8 +30,10 @@ public class Hw1 {
         
         int n=Integer.parseInt(args[0]);
         int k=Integer.parseInt(args[1]);
-        genMatrixClique matrix = new genMatrixClique(n,k);
-       
+        genMatrixClique matrixC = new genMatrixClique(n,k);
+        matrixC.GenerateClique(n,k);
+        
+        genMatrixStableSet matrixSS=new genMatrixStableSet(matrixC, );
             
     }
     
