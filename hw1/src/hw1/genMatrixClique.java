@@ -11,10 +11,12 @@ package hw1;
 class genMatrixClique {   
    private final int n;
    private final int k;
+   private int[][] adjMatrix;
    
-   genMatrixClique(int n, int k){
+   public genMatrixClique(int n, int k){
       this.n=n;
       this.k=k;
+      this.adjMatrix = new int [n][n];
    }
    
    public int getN()
@@ -22,33 +24,50 @@ class genMatrixClique {
 
    public int getK()
    { return this.k;}
+   
+   public int[][] getMatrix()
+   {return this.adjMatrix;}
     
-   public int[][] GenerateClique(int a, int b){
+   public void generateClique(){
        
-        int[][] randG = new int[a][a];
+        int[][] randG = new int[n][n];
         int[] cliqueMembers = new int[k];
+        int cliqueSize = 0;
         
-        for(int i =0 ; i<n;i++)
-        for(int j =0; j< n; j++)
-        randG[i][j]= (int)(Math.random() * 2);
-  
-            int cliqueSize = 0;
+        while(cliqueSize<k)
+        {
+            int candidate = (int)(Math.random()*n);
+            boolean exists = false;
             
-            int i = (int)(Math.random() * (k+1));
-            int j = (int)(Math.random() * (k+1));
-            randG[i][j] = 1; 
-            cliqueMembers[0]=i; cliqueMembers[1]=j;
-            cliqueSize++;
-            
-            while(cliqueSize < k){
-            
-            i = (int)(Math.random() * (k+1));
-            cliqueMembers[cliqueSize + 1] = i;
-            cliqueSize++;
-            for(j = 0; j<cliqueSize;j++)
-                randG[i][cliqueMembers[j]]=1; 
+            for(int i =0; i<cliqueSize; i++)
+                if(cliqueMembers[i] == candidate)
+            {
+                    exists=true;
+                    break;
             }
+            
+            if(!exists)
+                cliqueMembers[cliqueSize++]=candidate;
+        }
+  
+          for (int i = 0; i < k; i++) {
+            for (int j = 0; j < k; j++) {
+                if (i != j) {
+                    randG[cliqueMembers[i]][cliqueMembers[j]] = 1;
+                    randG[cliqueMembers[j]][cliqueMembers[i]] = 1; // Ensure symmetry
+                }
+            }
+        }
           
-        return randG;
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (randG[i][j] == 0) { // Don't overwrite clique edges
+                    randG[i][j] = (int) (Math.random() * 2); // 50% chance of being connected
+                    randG[j][i] = randG[i][j]; // Ensure symmetry
+                }
+            }
+        }
+          
+        this.adjMatrix = randG;
     }
 } 

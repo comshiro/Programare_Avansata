@@ -2,9 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
+
+
 package hw1;
 
+import java.util.Scanner;
 /**
+ *
  *
  * @author Naomi
  */
@@ -22,19 +26,18 @@ public class Hw1 {
             -it contains at least 1 clique of k size
             -                       stable set
         
-        
-        
         */
-        System.out.println(args[0]);
-        System.out.println(args[1]);
         
-        int n=Integer.parseInt(args[0]);
-        int k=Integer.parseInt(args[1]);
+        Scanner sc = new Scanner(System.in);
+        int n=sc.nextInt();
+        int k=sc.nextInt();
+        
         genMatrixClique matrixC = new genMatrixClique(n,k);
-        matrixC.GenerateClique(n,k);
+        System.out.println(matrixC.getK());
+        System.out.println(matrixC.getN());
+      
         
-        genMatrixStableSet matrixSS=new genMatrixStableSet(matrixC, );
-            
+        
     }
     
 }
