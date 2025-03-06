@@ -16,7 +16,7 @@ class genMatrixClique {
    public genMatrixClique(int n, int k){
       this.n=n;
       this.k=k;
-      this.adjMatrix = new int [n][n];
+      generateClique();
    }
    
    public int getN()
@@ -28,7 +28,7 @@ class genMatrixClique {
    public int[][] getMatrix()
    {return this.adjMatrix;}
     
-   public void generateClique(){
+   private void generateClique(){
        
         int[][] randG = new int[n][n];
         int[] cliqueMembers = new int[k];
