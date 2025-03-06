@@ -10,19 +10,6 @@ package hw1;
  */
 public class utilsMatrix {
     
-    protected class Pair
-    {
-        public int Δ;
-        public int δ;
-        Pair(int x, int y){
-            this.Δ= x;
-            this.δ = y;
-        }
-        public static void display(Pair p)
-        {
-            System.out.println("Δ(G)=" + p.Δ + " δ(G)=" + p.δ);
-        }
-    }
     
     public static int edgeNo(int[][] matrix)
     {
@@ -46,6 +33,14 @@ public class utilsMatrix {
                 }
             }
         return degree;
+    }
+    
+    public static int degreeSum(int[][] matrix)
+    {
+        int n = matrix.length, sum = 0;
+        for(int i = 0; i<n;i++)
+            sum+=calculateDegree(matrix,i);
+        return sum;
     }
     
     public static Pair Δδ(int[][] matrix)

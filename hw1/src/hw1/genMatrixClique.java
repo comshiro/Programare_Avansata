@@ -54,16 +54,16 @@ class genMatrixClique {
             for (int j = 0; j < k; j++) {
                 if (i != j) {
                     randG[cliqueMembers[i]][cliqueMembers[j]] = 1;
-                    randG[cliqueMembers[j]][cliqueMembers[i]] = 1; // Ensure symmetry
+                    randG[cliqueMembers[j]][cliqueMembers[i]] = 1; 
                 }
             }
         }
           
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
-                if (randG[i][j] == 0) { // Don't overwrite clique edges
-                    randG[i][j] = (int) (Math.random() * 2); // 50% chance of being connected
-                    randG[j][i] = randG[i][j]; // Ensure symmetry
+                if (randG[i][j] == 0) {
+                    randG[i][j] = (int) (Math.random() * 2); 
+                    randG[j][i] = randG[i][j]; 
                 }
             }
         }

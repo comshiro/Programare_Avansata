@@ -8,8 +8,7 @@ package hw1;
  *
  * @author Naomi
  */
-public class PrintMatrix {
-    
+public class PrintMatrix { 
     
     public static void printMatrixUnicode(int[][] matrix) {
         for (int[] row : matrix) {
