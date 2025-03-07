@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package hw1;
-
+import java.util.*;
 /**
  *
  * @author Administrator
@@ -57,4 +57,37 @@ public class utilsMatrix {
         } 
        return d; 
     }
+    
+    public static boolean existsClique(int k, int[][] matrix)
+    {
+        List<Integer> nodes = new ArrayList<>();
+        for(int i = 0; i< matrix.length; i++){
+            nodes.add(i);
+        }
+        return findClique(new ArrayList<>(),nodes, k, matrix);
+    }
+    
+    private static boolean findClique(List<Integer> currentClique, List<Integer>cliqueMembers, int k, int[][] matrix)
+    {
+        if(currentClique.size() >=k)
+                return true;
+        
+        int j = cliqueMembers.size();
+        for(int i = 0; i <j; i++)
+        {
+            int node = cliqueMembers.get(i);
+                List<Integer> newClique = new ArrayList<>(currentClique);
+                newClique.add(node);
+                List<Integer> newCandidates = new ArrayList<>();
+                for(int neighbour : cliqueMembers)
+                {
+                    if(neighbour != node && matrix[node][neighbour] == 1)
+                        newCandidates.add(neighbour);
+                }
+                if(findClique(newClique, newCandidates,k, matrix))
+                        return true;
+        }
+    
+        return false;
+    } 
 }
