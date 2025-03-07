@@ -16,6 +16,7 @@ public class genRandMatrix {
    public genRandMatrix(int n, int k){
       this.n=n;
       this.k=k;
+      adjMatrix = new int[n][n];
       generateRand();
    }
    
@@ -31,7 +32,9 @@ public class genRandMatrix {
    private void generateRand()
    {
        for(int i=0; i<n;i++)
-          for(int j=0; i<j;j++)
+          for(int j=i+1; j<n;j++){
               adjMatrix[i][j]=(int)(Math.random()*2);
+              adjMatrix[j][i]=adjMatrix[i][j];
+   }
    }
 }

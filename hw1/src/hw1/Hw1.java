@@ -55,10 +55,7 @@ public class Hw1 {
         
         if(!displayOn)
             PrintMatrix.printMatrix(matrixSS.getMatrix());
-        else
-        {
-            
-        }
+        
         System.out.println( "Numarul de muchii:"+ utilsMatrix.edgeNo(matrixSS.getMatrix()));
         Pair.display(utilsMatrix.Δδ(matrixSS.getMatrix()));
         
@@ -66,10 +63,23 @@ public class Hw1 {
             System.out.println("Da, Σd(G) = 2 * m ");
         else System.out.println("Nu, Σd(G) ≠  2 * m ");
     
+        genRandMatrix matrixRand1 = new genRandMatrix(10,4);
+        PrintMatrix.printMatrix(matrixRand1.getMatrix());
+        
+        boolean ok = utilsMatrix.existsClique(4, matrixRand1.getMatrix());
+        System.out.println(ok);
+        
+        genRandMatrix matrixRand3 = new genRandMatrix(1000,200);
+        ok = utilsMatrix.existsClique(4, matrixRand3.getMatrix());
+        System.out.println(ok);
+        
+        //genRandMatrix matrixRand2 = new genRandMatrix(30_000,100);
+        //ok = utilsMatrix.existsClique(100, matrixRand2.getMatrix());
+        //System.out.println(ok);
+        
     long endTime = System.nanoTime();
     long totalTime = (endTime - startTime)/1_000_000_000;
     
-    
-        System.out.println("The running time of the application: " +totalTime);
+        System.out.println("The running time of the application: " + totalTime);
 }
 }

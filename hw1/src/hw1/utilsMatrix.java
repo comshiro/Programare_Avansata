@@ -76,18 +76,33 @@ public class utilsMatrix {
         for(int i = 0; i <j; i++)
         {
             int node = cliqueMembers.get(i);
-                List<Integer> newClique = new ArrayList<>(currentClique);
-                newClique.add(node);
-                List<Integer> newCandidates = new ArrayList<>();
-                for(int neighbour : cliqueMembers)
+            currentClique.add(node);
+        
+            List<Integer> newCandidates = new ArrayList<>();
+              for(int neighbour : cliqueMembers)
                 {
                     if(neighbour != node && matrix[node][neighbour] == 1)
                         newCandidates.add(neighbour);
                 }
-                if(findClique(newClique, newCandidates,k, matrix))
+                if(findClique(currentClique, newCandidates,k, matrix))
                         return true;
+                
+                currentClique.remove(currentClique.size()-1);
         }
     
         return false;
     } 
+    
+    public static boolean existsStableSet(int k, int[][] matrix)
+    {
+        int n = matrix.length;
+        int[][] newMatrix = new int[n][n];
+        
+        for(int i = 0; i<n;i++)
+            for(int j = i+1; j<n; j++){
+                newMatrix[i][j]=1-matrix[i][j];
+                newMatrix[j][i]=newMatrix[i][j];
+            }
+        return existsClique(k, newMatrix);
+    }
 }
