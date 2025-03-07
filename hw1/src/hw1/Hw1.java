@@ -73,7 +73,7 @@ public class Hw1 {
         ok = utilsMatrix.existsClique(4, matrixRand3.getMatrix());
         System.out.println(ok);
         
-        //genRandMatrix matrixRand2 = new genRandMatrix(30_000,100);
+        //genRandMatrix matrixRand2 = new genRandMatrix(30_000,10);
         //ok = utilsMatrix.existsClique(100, matrixRand2.getMatrix());
         //System.out.println(ok);
         

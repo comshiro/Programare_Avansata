@@ -60,14 +60,14 @@ public class utilsMatrix {
     
     public static boolean existsClique(int k, int[][] matrix)
     {
-        List<Integer> nodes = new ArrayList<>();
+        ArrayList<Integer> nodes = new ArrayList<>();
         for(int i = 0; i< matrix.length; i++){
             nodes.add(i);
         }
         return findClique(new ArrayList<>(),nodes, k, matrix);
     }
     
-    private static boolean findClique(List<Integer> currentClique, List<Integer>cliqueMembers, int k, int[][] matrix)
+    private static boolean findClique(ArrayList<Integer> currentClique, ArrayList<Integer>cliqueMembers, int k, int[][] matrix)
     {
         if(currentClique.size() >=k)
                 return true;
@@ -78,7 +78,7 @@ public class utilsMatrix {
             int node = cliqueMembers.get(i);
             currentClique.add(node);
         
-            List<Integer> newCandidates = new ArrayList<>();
+            ArrayList<Integer> newCandidates = new ArrayList<>();
               for(int neighbour : cliqueMembers)
                 {
                     if(neighbour != node && matrix[node][neighbour] == 1)
