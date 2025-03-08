@@ -4,27 +4,64 @@
  */
 package lab2;
 
+import java.time.LocalDate;
+import java.util.Arrays;
+
 /**
  *
- * @author Administrator
+ * @author Naomi
+ * Consider that a project is proposed by a teacher. Both students and teachers are persons, 
+ * having a name and a date of birth. 
+ * Each student has a registration number and each teacher has a list of proposed projects.
  */
-public class Teacher {
-    private String name;
+public class Teacher extends Person {
     private Project[] projects;
+
+    public Teacher(String name, LocalDate brthdate) {
+        super(name, brthdate);
+    }
     
-    Teacher(String name)
-    { this.name=name;}
-    Teacher(String name, int n, Project[] projects)
-    {
-        this.name=name;
-        projects = new Project[n];
-        for(int i = 0; i< n; i++)
-            this.projects[i] =projects[i]; 
+    public Teacher() {
     }
     
     
     public void setProjects(Project[] projects)
     {
-        
+        this.projects = projects;
+        for(Project p : projects)
+            p.setTeacher(this);
     }
+
+    public Project[] getProjects() {
+        return projects;
+    }
+
+    @Override
+    public String toString() {
+        return "Teacher{" + "projects=" + projects + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 89 * hash + Arrays.deepHashCode(this.projects);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Teacher other = (Teacher) obj;
+        return Arrays.deepEquals(this.projects, other.projects);
+    }
+    
+    
 }

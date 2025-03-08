@@ -10,6 +10,9 @@ package lab2;
  */
 public class Project {
     
+    /**
+     * A project may be of two types, thoretical or practical. Use an enum in order to implement this feature.
+     */
     public enum projectType
     {practical, theoretical}
     
