@@ -58,6 +58,13 @@ public class utilsMatrix {
        return d; 
     }
     
+    /**
+     * Write an algorithm that finds if a graph has a clique of size at least k. Test you algorithm for randomly generated instances of various sizes.
+Use the algorithm above to check if a graph has a stable set of size at least k.
+     * @param k
+     * @param matrix
+     * @return 
+     */
     public static boolean existsClique(int k, int[][] matrix)
     {
         ArrayList<Integer> nodes = new ArrayList<>();
