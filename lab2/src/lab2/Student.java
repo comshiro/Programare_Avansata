@@ -12,14 +12,13 @@ import java.util.Objects;
  * @author Naomi
  */
 public class Student extends Person {
-    private String name;
-    private LocalDate birthdate;
     private Long regNumber;
     
     public Student(){}
     
     public Student(String name){
-        this(name, null,null);
+        super(name, null);
+        this.regNumber = null;
     }
 
     public Student(String name, LocalDate birthdate, Long regNumber) {
@@ -37,8 +36,9 @@ public class Student extends Person {
 
     @Override
     public String toString() {
-        return "Student{" + "name=" + name + '}';
+        return "Student{" + "name=" + this.getName() + ", birthdate=" + this.getBirthdate() + ", regNumber=" + regNumber + '}';
     }
+
 
     @Override
     public int hashCode() {

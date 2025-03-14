@@ -15,7 +15,7 @@ import java.util.Arrays;
  * Each student has a registration number and each teacher has a list of proposed projects.
  */
 public class Teacher extends Person {
-    private Project[] projects;
+    private Project[] projects = new Project[0];
 
     public Teacher(String name, LocalDate brthdate) {
         super(name, brthdate);
@@ -37,14 +37,7 @@ public class Teacher extends Person {
 
     @Override
     public String toString() {
-        return "Teacher{" + "projects=" + projects + '}';
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + Arrays.deepHashCode(this.projects);
-        return hash;
+        return "Teacher{" + this.getName()+ " "+ this.getBirthdate() + "}";
     }
 
     @Override

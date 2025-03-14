@@ -11,13 +11,13 @@ import java.util.Objects;
  * @author Naomi
  */
 public class Project {
-
-    void setTeacher(Teacher aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+    private Teacher t;
     
+    void setTeacher(Teacher t) {
+        this.teacher = t;
+    }
     /**
-     * A project may be of two types, thoretical or practical. Use an enum in order to implement this feature.
+     * A project may be of two types, theoretical or practical. Use an enum in order to implement this feature.
      */
     public enum projectType
     {practical, theoretical}

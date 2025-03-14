@@ -6,9 +6,17 @@ package lab2;
 
 /**
  *
- * @author Administrator
+ * @author nao
  */
-public class Solution {
-    private Project[] projects;
+class Pair<T0, T1> {
+    public Student s;
+    public Project p;
     
+    Pair(Student s, Project p)
+    {
+        this.s=s;
+        this.p =p;
+    }
+
+    Pair() {}
 }
