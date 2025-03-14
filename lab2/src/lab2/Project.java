@@ -12,9 +12,19 @@ import java.util.Objects;
  */
 public class Project {
     private Teacher t;
+    private Student s;
     
-    void setTeacher(Teacher t) {
-        this.teacher = t;
+    public void setTeacher(Teacher t) {
+        this.t = t;
+    }
+    
+    void setStudent(Student s)
+    {
+        this.s = s;
+    }
+
+    public Student getStudent() {
+        return this.s;
     }
     /**
      * A project may be of two types, theoretical or practical. Use an enum in order to implement this feature.

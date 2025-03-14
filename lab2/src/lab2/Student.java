@@ -13,7 +13,7 @@ import java.util.Objects;
  */
 public class Student extends Person {
     private Long regNumber;
-    
+    private Project[] preferances;
     public Student(){}
     
     public Student(String name){
@@ -60,6 +60,14 @@ public class Student extends Person {
         }
         final Student other = (Student) obj;
         return Objects.equals(this.regNumber, other.regNumber);
+    }
+
+    public Project[] getPreferances() {
+        return preferances;
+    }
+
+    public void setPreferances(Project[] preferances) {
+        this.preferances = preferances;
     }
     
 }

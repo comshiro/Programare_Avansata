@@ -15,7 +15,7 @@ import java.util.Arrays;
  * Each student has a registration number and each teacher has a list of proposed projects.
  */
 public class Teacher extends Person {
-    private Project[] projects = new Project[0];
+    private Project[] projects;
 
     public Teacher(String name, LocalDate brthdate) {
         super(name, brthdate);

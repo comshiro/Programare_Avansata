@@ -62,5 +62,15 @@ public class Problem {
         
         return persons;
     }
+
+    public Student[] getStudents() {
+        return students;
+    }
+    
+    public Teacher[] getTeachers(){
+        return teachers;
+    }
+    
+    
    
 }
