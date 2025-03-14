@@ -5,6 +5,7 @@
 package lab2;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Arrays;
 import java.util.HashSet;
 import lab2.Project.projectType;
 /**
@@ -36,7 +37,7 @@ public class Lab2 {
 
         Project p1 = new Project("EZ Java", projectType.practical);
         System.out.println(p1);
-        //Student s2 = new Student('Ana', 12-01-2004, );
+        Student s2 = new Student("Andrei", bday, 123242L);
         Student c3 = new Student();
         c3.setName("Student 1");
         c3.setBirthdate(LocalDate.of(1999, Month.MARCH, 31));
@@ -46,7 +47,8 @@ public class Lab2 {
         Student c4 = new Student("Student 2");
         System.out.println(c4);
         Student c5 = new Student("Student 1");
-        System.out.println(c3 == c5);
+        System.out.println(c3 == c5);System.out.println(s1 == s2);
+        System.out.println(s1.equals(s2));
         System.out.println(c5.equals(c3));
         
         Teacher t1= new Teacher();
@@ -65,16 +67,25 @@ public class Lab2 {
         System.out.println(t2);
         System.out.println(p);
         System.out.println(c4.getName());
-    
+        System.out.println(c4.getBirthdate());
+        System.out.println(c4.getRegNo());
+        System.out.println(Arrays.toString(c4.getPreferances()));
+        
         p.setTeacher(t2);
         p1.setTeacher(t2);
         p2.setTeacher(t1);
         p3.setTeacher(t1);
         
         s1.setPreferances(new Project[] {p, p1});
+        s1.getPreferances();
         c3.setPreferances(new Project[] {p, p2});
         c4.setPreferances(new Project[] {p2, p3});
         c5.setPreferances(new Project[] {p, p3});
+        
+        System.out.println(c4.getName());
+        System.out.println(c4.getBirthdate());
+        System.out.println(c4.getRegNo());
+        System.out.println(Arrays.toString(c4.getPreferances()));
         
         Problem pb = new Problem();
         pb.addTeacher(t2);
@@ -87,7 +98,6 @@ public class Lab2 {
         Solution solution = new Solution();
         solution.solveProblem(pb);
         solution.getSolution();
-        
     
     }
     

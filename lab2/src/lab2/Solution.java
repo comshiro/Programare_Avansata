@@ -3,7 +3,7 @@ package lab2;
 
 /**
  *
- * @author Administrator
+ * @author Naomi
  */
 public class Solution {
     private Project[] projects; //containing the projects that have setTeacher and student
@@ -28,17 +28,17 @@ public class Solution {
             }
        }
     }
-        for(Student student : pb.getStudents()){
+        for(Student student : students){
             for(Project project : student.getPreferances()){
                 for(Project availableProject : availableProjects){
                     if(project.equals(availableProject) && availableProject.getStudent()==null){
                         availableProject.setStudent(student);
-                        break;
-                                
-                    }
+                        break;       
+                   }
             }
         }
     }
+        this.projects = availableProjects;
     }
 
     public void getSolution()

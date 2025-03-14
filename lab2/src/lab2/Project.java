@@ -11,11 +11,10 @@ import java.util.Objects;
  * @author Naomi
  */
 public class Project {
-    private Teacher t;
     private Student s;
     
     public void setTeacher(Teacher t) {
-        this.t = t;
+        this.teacher = t ;
     }
     
     void setStudent(Student s)
@@ -85,6 +84,4 @@ public class Project {
         final Project other = (Project) obj;
         return Objects.equals(this.projectTitle, other.projectTitle);
     }
-   
-            
 }
