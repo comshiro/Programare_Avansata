@@ -4,6 +4,8 @@
  */
 package lab2;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Administrator
@@ -12,22 +14,53 @@ public class Problem {
     private Student[] students;
     private Teacher[] teachers; //containing the projects
     
+    public Problem()
+    {
+        this.students = new Student[0];
+        this.teachers= new Teacher[0];
+    }
+    
     public void addStudent(Student s)
     {
-        Student s2 = new Student[students.length + 1];
-        
+        for(Student student: students)
+        {
+            if(student.equals(s))
+                System.out.println("Student already exists");
+            else
+            {
+                students = Arrays.copyOf(students, students.length +1);
+                students[students.length - 1]=s;
+            }
+                
+        }
        
     }
     
     public void addTeacher(Teacher t)
-    {}
-    
-    public void addProject(Project p)
-    {}
-    
-    Person[] getPersons()
     {
+        for(Teacher teacher: teachers)
+            if(teacher.equals(t))
+                System.out.println("Teacher already exists");
+            else
+            {
+                teachers = Arrays.copyOf(teachers, teachers.length +1);
+                teachers[teachers.length - 1]=t;
+            }
+    }
+    
+   
+    public Person[] getPersons()
+    {
+        Person[] persons = new Person[students.length + teachers.length];
+        int i=0;
         
+        for(Student student : students)
+            persons[i++]=student;
+        
+        for(Teacher teacher : teachers)
+            persons[i++]=teacher;
+        
+        return persons;
     }
    
 }
