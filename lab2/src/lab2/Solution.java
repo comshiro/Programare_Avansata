@@ -15,30 +15,47 @@ public class Solution {
         Student[] students = pb.getStudents();
         Project[] availableProjects=new Project[0];
         
+        System.out.println("Populating available projects...");
+        
         for(Teacher teacher :pb.getTeachers()){
+            System.out.println("Teacher "+teacher.getName());
+            
            for(Project project: teacher.getProjects()){
+              System.out.println("Project: " + project.getProjectTitle());
            boolean ok = false;
             for(Project p: availableProjects) {  
                 if(p.equals(project)){
                     ok=true;
                     break;
                 }
-                if(!ok)
+            }
+                if(!ok){
                     availableProjects = addAvailableProject(availableProjects,project);
+                    System.out.println("Project: " + project.getProjectTitle());
+
             }
        }
     }
+        
+        System.out.println("Number of available projects: "+ availableProjects.length);
+        
         for(Student student : students){
+            boolean assigned = false;
             for(Project project : student.getPreferances()){
                 for(Project availableProject : availableProjects){
                     if(project.equals(availableProject) && availableProject.getStudent()==null){
                         availableProject.setStudent(student);
+                        assigned = true;
                         break;       
                    }
             }
+                if(assigned)
+                    break;
         }
+       
     }
         this.projects = availableProjects;
+        System.out.println("Projects assigned");
     }
 
     public void getSolution()
@@ -47,7 +64,7 @@ public class Solution {
         for(Project project : projects)
         {
             if(project.getStudent()!=null)
-                System.out.println(project.getProjectTitle() + "is assigned to "+ project.getStudent());
+                System.out.println(project.getProjectTitle() + " is assigned to "+ project.getStudent());
             else
                 System.out.println(project.getProjectTitle()+ "has no student assigned yet.");
         }

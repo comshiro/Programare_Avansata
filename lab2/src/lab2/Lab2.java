@@ -6,7 +6,6 @@ package lab2;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
-import java.util.HashSet;
 import lab2.Project.projectType;
 /**
  *
@@ -46,7 +45,7 @@ public class Lab2 {
         
         Student c4 = new Student("Student 2");
         System.out.println(c4);
-        Student c5 = new Student("Student 1");
+        Student c5 = new Student("Student 3");
         System.out.println(c3 == c5);System.out.println(s1 == s2);
         System.out.println(s1.equals(s2));
         System.out.println(c5.equals(c3));
@@ -61,6 +60,8 @@ public class Lab2 {
 
         Teacher t2 = new Teacher("T2", LocalDate.of(1950, Month.AUGUST, 1) );
         t1.setProjects(new Project[] {p, p1});
+        System.out.println("-------------------------");
+        System.out.println(Arrays.toString(t1.getProjects()));
         t2.setProjects(new Project[] {p2, p3});
         
         System.out.println(t1);
@@ -94,6 +95,9 @@ public class Lab2 {
         pb.addStudent(c3);
         pb.addStudent(c4);
         pb.addStudent(c5);
+        
+        System.out.println(Arrays.toString(pb.getPersons()));
+        System.out.println(Arrays.toString(t1.getProjects()));
         
         Solution solution = new Solution();
         solution.solveProblem(pb);

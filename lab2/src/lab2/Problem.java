@@ -22,30 +22,19 @@ public class Problem {
     
     public void addStudent(Student s)
     {
-        for(Student student: students)
-        {
-            if(student.equals(s))
-                System.out.println("Student already exists");
-            else
-            {
-                students = Arrays.copyOf(students, students.length +1);
-                students[students.length - 1]=s;
-            }
-                
-        }
+       Student[] newStudents = new Student[students.length +1];
+       System.arraycopy(students, 0, newStudents, 0, students.length);
+       newStudents[students.length] = s;
+       students = newStudents;
        
     }
     
     public void addTeacher(Teacher t)
     {
-        for(Teacher teacher: teachers)
-            if(teacher.equals(t))
-                System.out.println("Teacher already exists");
-            else
-            {
-                teachers = Arrays.copyOf(teachers, teachers.length +1);
-                teachers[teachers.length - 1]=t;
-            }
+       Teacher[] newTeachers = new Teacher[teachers.length +1];
+       System.arraycopy(teachers, 0, newTeachers, 0, teachers.length);
+       newTeachers[teachers.length] = t;
+       teachers = newTeachers;
     }
     
    
