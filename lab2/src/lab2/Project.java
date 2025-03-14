@@ -4,11 +4,17 @@
  */
 package lab2;
 
+import java.util.Objects;
+
 /**
  *
  * @author Naomi
  */
 public class Project {
+
+    void setTeacher(Teacher aThis) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     /**
      * A project may be of two types, thoretical or practical. Use an enum in order to implement this feature.
@@ -42,10 +48,33 @@ public class Project {
     public void setProjectType(projectType type){
         this.type = type;
     }
-    
+
     @Override
-    public String toString(){
-        return this.projectTitle;
+    public String toString() {
+        return "Project{" + "projectTitle=" + projectTitle + ", type=" + type + ", teacher=" + teacher + '}';
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 83 * hash + Objects.hashCode(this.projectTitle);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Project other = (Project) obj;
+        return Objects.equals(this.projectTitle, other.projectTitle);
+    }
+   
             
 }

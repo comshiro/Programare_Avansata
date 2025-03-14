@@ -9,8 +9,7 @@ import lab2.Project.projectType;
 /**
  *
  * @author Naomi
- * Compulsory (1p)
-
+ * 
 Create an object-oriented model of the problem. You should have (at least) the following classes: Student, Project.
 A project may be of two types, thoretical or practical. Use an enum in order to implement this feature.
 Each class should have appropriate constructors, getters and setters.

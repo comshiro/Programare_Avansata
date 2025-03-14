@@ -12,7 +12,7 @@ import java.time.LocalDate;
  */
 public class Person {
     private String name;
-    private LocalDate brthdate;
+    private LocalDate birthdate;
 
     public String getName() {
         return name;
@@ -22,17 +22,19 @@ public class Person {
         this.name = name;
     }
 
-    public LocalDate getBrthdate() {
-        return brthdate;
+    public LocalDate getBirthdate() {
+        return birthdate;
     }
 
-    public void setBrthdate(LocalDate brthdate) {
-        this.brthdate = brthdate;
+    public void setBirthdate(LocalDate brthdate) {
+        this.birthdate = brthdate;
     }
 
     public Person(String name, LocalDate brthdate) {
         this.name = name;
-        this.brthdate = brthdate;
+        this.birthdate = brthdate;
     }
+    
+    public Person(){}
     
 }
