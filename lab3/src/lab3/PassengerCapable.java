@@ -6,13 +6,13 @@ package lab3;
 
 /**
  *
- * @author Administrator
+ * @author Naomi
  */
 public interface PassengerCapable {
     
     Long getSeatCount();
         
-        default boolean hasBusinessClassSeats(){
+    default boolean hasBusinessClassSeats(){
             return true;
         }
 }

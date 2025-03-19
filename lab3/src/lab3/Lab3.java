@@ -19,6 +19,18 @@ public class Lab3 {
         cargo[0]=d;
         cargo[1]=f;
         System.out.println(cargo[0] + " "+ cargo[1]);
+
+        Aircraft[] b = new Aircraft[3];
+        b[0]=a;
+        b[1]=d;
+        b[2]=f;
+
+        for(Aircraft aircraft: b)
+            if(aircraft instanceof CargoCapable) {
+                System.out.println(((CargoCapable)aircraft).toString());
+            }
+
+
     }
     
 }

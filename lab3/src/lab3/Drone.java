@@ -10,7 +10,7 @@ package lab3;
  */
 public class Drone extends Aircraft implements CargoCapable 
 {
-    private Long batteryLife;
+    private final Long batteryLife;
 
     public Drone(Long batteryLife, double maximumPayLoad, String model, Long tailNumber, String CallSign) {
         super(model, tailNumber, CallSign);
@@ -27,6 +27,10 @@ public class Drone extends Aircraft implements CargoCapable
     
     public void setMaximumPayLoad(double payLoad){
         this.maximumPayLoad = payLoad;
+    }
+
+    public Long getBatteryLife() {
+        return batteryLife;
     }
 
     @Override

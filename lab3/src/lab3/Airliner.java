@@ -32,11 +32,6 @@ public class Airliner extends Aircraft
     }
 
     @Override
-    public boolean hasBusinessClassSeats() {
-        return true;
-    }
-    
-    @Override
     public Long getSeatCount(){
         return seatCount;
     }
@@ -52,5 +47,10 @@ public class Airliner extends Aircraft
     
     public void setMaximumPayLoad(double payLoad){
         this.maximumPayLoad = payLoad;
+    }
+
+    @Override
+    public String toString() {
+        return "Airliner{" + "model=" + this.getModel()+ '}';
     }
 }

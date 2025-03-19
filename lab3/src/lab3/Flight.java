@@ -4,8 +4,6 @@
  */
 package lab3;
 
-import java.util.Map;
-
 /**
  *
  * @author Administrator
@@ -13,6 +11,44 @@ import java.util.Map;
 public class Flight {
     private Aircraft aircraft;
     private Long id;
-    private Map<Long, Long> landingInterval;
-    private Runway runway;
+    private TimeInterval timeInterval;
+
+    public Flight(Aircraft aircraft, Long id, TimeInterval timeInterval) {
+        this.aircraft = aircraft;
+        this.id = id;
+        this.timeInterval = timeInterval;
+    }
+
+    public Aircraft getAircraft() {
+        return aircraft;
+    }
+
+    public void setAircraft(Aircraft aircraft) {
+        this.aircraft = aircraft;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public TimeInterval getTimeInterval() {
+        return timeInterval;
+    }
+
+    public void setTimeInterval(TimeInterval timeInterval) {
+        this.timeInterval = timeInterval;
+    }
+
+    @Override
+    public String toString() {
+        return "Flight{" +
+                "aircraft=" + aircraft +
+                ", id=" + id +
+                ", timeInterval=" + timeInterval +
+                '}';
+    }
 }

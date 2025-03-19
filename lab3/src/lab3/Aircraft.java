@@ -8,7 +8,9 @@ package lab3;
  *
  * @author Naomi
  */
-public abstract class Aircraft {
+public abstract class Aircraft
+    implements Comparable<Aircraft>
+{
     private String model;
     private Long tailNumber;
     private String CallSign;
@@ -42,7 +44,13 @@ public abstract class Aircraft {
     public void setCallSign(String CallSign) {
         this.CallSign = CallSign;
     }
-    
+
+    @Override
+    public int compareTo(Aircraft other){
+        if(model != null && other.getModel() != null)
+            return this.model.compareTo(other.model);
+        else return -1;
+    }
      
 
 }
