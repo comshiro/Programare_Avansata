@@ -10,7 +10,7 @@ import java.util.List;
  * mi s-a sugerat de IDE ca aceasta clasa sa fie record class
  *
  */
-class Runway {
+class Runway implements Comparable<Runway> {
     private final String id;
     private final List<Flight> scheduledFlights;
 
@@ -33,5 +33,14 @@ class Runway {
                 "id='" + id + '\'' +
                 ", scheduledFlights=" + scheduledFlights +
                 '}';
+    }
+
+
+    @Override
+    public int compareTo(Runway other) {
+        int thisLoad = this.scheduledFlights.size();
+        int otherLoad = other.scheduledFlights.size();
+
+        return Integer.compare(thisLoad, otherLoad);
     }
 }
