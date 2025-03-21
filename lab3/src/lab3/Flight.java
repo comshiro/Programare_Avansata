@@ -4,11 +4,14 @@
  */
 package lab3;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 /**
  *
  * @author Administrator
  */
-public class Flight {
+public class Flight implements Comparable<Flight> {
     private Aircraft aircraft;
     private Long id;
     private TimeInterval timeInterval;
@@ -50,5 +53,10 @@ public class Flight {
                 ", id=" + id +
                 ", timeInterval=" + timeInterval +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Flight other) {
+        return this.timeInterval.getFirst().compareTo(other.timeInterval.getFirst());
     }
 }

@@ -11,8 +11,8 @@ import java.util.List;
  *
  */
 class Runway {
-    private final String id;  // Unique identifier for the runway
-    private final List<Flight> scheduledFlights; // List of assigned flights
+    private final String id;
+    private final List<Flight> scheduledFlights;
 
     public Runway(String id, List<Flight> scheduledFlights) {
         this.id = id;
