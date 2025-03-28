@@ -4,6 +4,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.*;
 import java.util.stream.Stream;
+import com.github.javafaker;
 
 public class Main {
     public static void main(String[] args) {
@@ -54,5 +55,6 @@ public class Main {
 
         System.out.println(sortedEnemies);
 
+       // Location loc = new Location(faker.adress().City(), Type.FRIENDLY);
     }
 }
