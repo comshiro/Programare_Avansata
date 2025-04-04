@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public record Image  (String name, LocalDate date, String path) {
+public record Image  (String name, LocalDate date, String path) implements Serializable{
     public Image(String name, LocalDate date, String path) {
         this.name = name;
         this.date = date;
