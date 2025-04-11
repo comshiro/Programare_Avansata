@@ -7,7 +7,7 @@ public class MainFrame extends JFrame {
     ConfigPanel configPanel;
     ControlPanel controlPanel;
     DrawingPanel canvas;
-
+    
     public MainFrame() {
         super("Dot Connect Game");
         init();

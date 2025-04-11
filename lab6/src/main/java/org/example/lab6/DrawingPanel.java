@@ -1,13 +1,12 @@
 package org.example.lab6;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 
@@ -42,7 +41,6 @@ public class DrawingPanel extends JPanel {
             }
         });
     }
-
 
     public void createDots(int count) {
         dots.clear();
@@ -106,6 +104,66 @@ public class DrawingPanel extends JPanel {
         repaint();
     }
 
+    public void exportToPNG() {
+        // Create a BufferedImage to render the game board
+        int width = getWidth();
+        int height = getHeight();
+        BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        // Create a Graphics2D object to render on the BufferedImage
+        Graphics2D g2d = image.createGraphics();
+        // Set rendering hints for better quality
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+
+        // Render the panel's components (this calls the paintComponent method)
+        paintComponent(g2d);
+
+        // Dispose the graphics object to release resources
+        g2d.dispose();
+
+        // Save the image to a file
+        try {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setDialogTitle("Save Image as PNG");
+            fileChooser.setFileFilter(new javax.swing.filechooser.FileNameExtensionFilter("PNG Images", "png"));
+
+            int userSelection = fileChooser.showSaveDialog(this);
+            if (userSelection == JFileChooser.APPROVE_OPTION) {
+                File fileToSave = fileChooser.getSelectedFile();
+                ImageIO.write(image, "PNG", fileToSave);
+                JOptionPane.showMessageDialog(this, "Game board exported successfully!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error saving the game board.");
+        }
+    }
+
+    public double getPlayerScore(Color color) {
+        return lines.stream()
+                .filter(line -> line.color.equals(color))
+                .mapToDouble(Line::length)
+                .sum();
+    }
+
+    // Calcularea scorului optim folosind MST
+    public double getBestPossibleScore() {
+        return MST.calculateMST(dots);
+    }
+
+    // Compara scorul jucătorilor cu scorul optim
+    public String compareScores() {
+        double bestScore = getBestPossibleScore();
+        double blueScore = getPlayerScore(Color.BLUE);
+        double redScore = getPlayerScore(Color.RED);
+
+        String result = "Best Score: " + bestScore + "\n";
+        result += "Blue Score: " + blueScore + " (Difference: " + Math.abs(blueScore - bestScore) + ")\n";
+        result += "Red Score: " + redScore + " (Difference: " + Math.abs(redScore - bestScore) + ")";
+        return result;
+    }
+
     private static class Line implements Serializable {
         Point p1, p2;
         Color color;
@@ -114,6 +172,10 @@ public class DrawingPanel extends JPanel {
             this.p1 = p1;
             this.p2 = p2;
             this.color = color;
+        }
+
+        double length() {
+            return p1.distance(p2);
         }
     }
 }
