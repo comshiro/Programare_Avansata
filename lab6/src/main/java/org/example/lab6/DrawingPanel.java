@@ -17,6 +17,60 @@ public class DrawingPanel extends JPanel {
     private Point selectedDot = null;
     private boolean isPlayerOneTurn = true;
 
+    private boolean isPlayerOneAI = false;
+    private boolean isPlayerTwoAI = false;
+    private String aiDifficulty = "Medium";
+
+    public void startGame(boolean isPlayerOneAI, boolean isPlayerTwoAI, String aiDifficulty) {
+        this.isPlayerOneAI = isPlayerOneAI;
+        this.isPlayerTwoAI = isPlayerTwoAI;
+        this.aiDifficulty = aiDifficulty;
+
+        // Reset the game state and start fresh
+        createDots(10); // Example: starting with 10 dots for simplicity
+    }
+
+    public void aiMove() {
+        // Check if Player One AI's turn
+        if (isPlayerOneAI && isPlayerOneTurn) {
+            makeAIMove(aiDifficulty, 0); // Make move for Player One AI (assuming 0 is Player One)
+            isPlayerOneTurn = false; // Switch turn to Player Two
+        }
+        // Check if Player Two AI's turn
+        else if (isPlayerTwoAI && !isPlayerOneTurn) {
+            makeAIMove(aiDifficulty, 1); // Make move for Player Two AI (assuming 1 is Player Two)
+            isPlayerOneTurn = true; // Switch turn to Player One
+        }
+        repaint();
+    }
+
+
+    private void makeAIMove(String difficulty, int player) {
+        // AI move logic based on difficulty
+        List<Point> aiPoints = new ArrayList<>(dots);
+        List<List<MST.Edge>> spanningTrees = MST.generateSpanningTrees(aiPoints, 5); // Generate 5 spanning trees
+
+        List<MST.Edge> selectedTree;
+
+        // Select the AI strategy based on the difficulty
+        if (difficulty.equals("Easy")) {
+            selectedTree = MST.getWorstSpanningTree(spanningTrees, aiPoints);
+        } else if (difficulty.equals("Medium")) {
+            selectedTree = MST.getBestSpanningTree(spanningTrees, aiPoints); // Medium: select a balanced tree
+        } else { // Hard: select the first tree (lowest cost)
+            selectedTree = MST.getBestSpanningTree(spanningTrees, aiPoints);
+        }
+
+        // Make the AI move based on the selected tree
+        for (MST.Edge edge : selectedTree) {
+            lines.add(new Line(dots.get(edge.u), dots.get(edge.v), isPlayerOneTurn ? Color.BLUE : Color.RED));
+        }
+
+        // Switch turns after AI move
+        isPlayerOneTurn = !isPlayerOneTurn;
+        repaint();
+    }
+
     public DrawingPanel(MainFrame frame) {
         this.frame = frame;
         setPreferredSize(new Dimension(600, 400));
@@ -32,7 +86,11 @@ public class DrawingPanel extends JPanel {
                     } else {
                         if (!selectedDot.equals(clicked)) {
                             lines.add(new Line(selectedDot, clicked, isPlayerOneTurn ? Color.BLUE : Color.RED));
-                            isPlayerOneTurn = !isPlayerOneTurn;
+                            isPlayerOneTurn = !isPlayerOneTurn; // Switch turns
+                            repaint();
+
+                            // After player makes a move, AI makes its move
+                            aiMove();
                         }
                         selectedDot = null;
                         repaint();

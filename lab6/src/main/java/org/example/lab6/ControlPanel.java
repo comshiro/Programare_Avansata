@@ -36,8 +36,6 @@ public class ControlPanel extends JPanel {
         saveBtn.addActionListener(this::saveGame);
         compareScoresBtn.addActionListener(this::compareScores);
         exportBtn.addActionListener(this::exportGame);
-
-
     }
 
     private void exportGame(ActionEvent actionEvent) {
@@ -50,7 +48,10 @@ public class ControlPanel extends JPanel {
     }
 
     private void exitGame(ActionEvent e) {
-        frame.dispose();
+        int choice = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit?");
+        if (choice == JOptionPane.YES_OPTION) {
+            frame.dispose();
+        }
     }
 
     private void resetGame(ActionEvent e) {
@@ -83,6 +84,4 @@ public class ControlPanel extends JPanel {
             }
         }
     }
-
-
 }

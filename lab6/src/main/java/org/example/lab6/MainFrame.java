@@ -7,7 +7,7 @@ public class MainFrame extends JFrame {
     ConfigPanel configPanel;
     ControlPanel controlPanel;
     DrawingPanel canvas;
-    
+
     public MainFrame() {
         super("Dot Connect Game");
         init();
@@ -32,4 +32,10 @@ public class MainFrame extends JFrame {
     public DrawingPanel getCanvas() {
         return canvas;
     }
+
+    public void startNewGame(boolean isPlayerOneAI, boolean isPlayerTwoAI, String aiDifficulty) {
+        // Pass the AI configuration and start the game
+        canvas.startGame(isPlayerOneAI, isPlayerTwoAI, aiDifficulty);
+    }
 }
+
