@@ -10,23 +10,14 @@ public class CityDAO {
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement("INSERT INTO cities (name, country, latitude, longitude) VALUES (?, ?, ?, ?)")) {
 
-            // Set parameters for the prepared statement
             ps.setString(1, city.getName());
             ps.setString(2, city.getCountry());
             ps.setDouble(3, city.getLatitude());
             ps.setDouble(4, city.getLongitude());
 
-            int rowsAffected = ps.executeUpdate();
-            System.out.println("Rows affected: " + rowsAffected);  // Add this to check if the insertion works
-
-        } catch (SQLException e) {
-            System.err.println("SQL Exception during city insertion: " + e.getMessage());
-            e.printStackTrace();
-            throw e;
+            ps.executeUpdate();
         }
     }
-
-
 
     public City getCityById(int id) throws SQLException {
         City city = null;

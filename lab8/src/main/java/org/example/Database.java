@@ -22,8 +22,7 @@ public class Database {
         // Get connection from the pool
         Connection conn = dataSource.getConnection();
 
-        // Optionally, disable auto-commit for manual transaction management
-        conn.setAutoCommit(false);  // Only do this if you plan on managing transactions manually
+        conn.setAutoCommit(false);
 
         return conn;
     }
@@ -35,10 +34,10 @@ public class Database {
         }
     }
 
-    // To close the pool when your application ends
+    // closing the pool when the app ends
     public static void shutdown() {
         if (dataSource != null) {
-            dataSource.close();  // Ensure pool is properly shut down
+            dataSource.close();
         }
     }
 }

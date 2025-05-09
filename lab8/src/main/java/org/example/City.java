@@ -22,7 +22,6 @@ public class City extends BaseModel {
         this.country = country;
     }
 
-    // Getter and Setter for Name
     @Override
     public String getName() {
         return this.name;

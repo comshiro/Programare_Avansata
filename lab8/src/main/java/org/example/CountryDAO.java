@@ -5,6 +5,12 @@ import java.sql.*;
 public class CountryDAO {
 
     public void addCountry(String name, String code, int continentId) {
+        // Check if the country already exists
+        if (findCountryByName(name) != null) {
+            System.out.println("Country '" + name + "' already exists.");
+            return;
+        }
+
         String sql = "INSERT INTO countries (name, code, continent_id) VALUES (?, ?, ?)";
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -15,13 +21,13 @@ public class CountryDAO {
 
             System.out.println("Rows affected: " + rowsAffected);
 
-            conn.commit();
+            conn.commit();  // Optional if you're managing commits manually
         } catch (SQLException e) {
             System.err.println("SQL Exception during country insertion: " + e.getMessage());
         }
     }
 
-    public Country getCountryById(int id) {
+    public Country findCountryById(int id) {
         Country country = null;
         String sql = "SELECT * FROM countries WHERE id = ?";
         try (Connection conn = Database.getConnection();
@@ -37,7 +43,7 @@ public class CountryDAO {
         return country;
     }
 
-    public Country getCountryByName(String name) {
+    public Country findCountryByName(String name) {
         Country country = null;
         String sql = "SELECT * FROM countries WHERE name = ?";
         try (Connection conn = Database.getConnection();
