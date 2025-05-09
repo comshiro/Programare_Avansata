@@ -1,43 +1,44 @@
 package org.example;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    private static final String URL = "jdbc:sqlite:E:/PA/lab8/src/main/resources/world_cities.db";
-    private static Connection connection = null;
+    private static HikariDataSource dataSource;
 
-    private Database() {}
+    static {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:sqlite:E:/PA/lab8/src/main/resources/world_cities.db");
+        config.setUsername("");  // SQLite doesn't need a username
+        config.setPassword("");  // SQLite doesn't need a password
+        config.setMaximumPoolSize(10);
 
-    public static Connection getConnection() {
-        try {
-            if (connection == null || connection.isClosed()) {
-                createConnection();
-            }
-        } catch (SQLException e) {
-            System.err.println("Error checking connection: " + e.getMessage());
-        }
-        return connection;
+        dataSource = new HikariDataSource(config);
     }
 
-    private static void createConnection() {
-        try {
-            connection = DriverManager.getConnection(URL);
-            connection.setAutoCommit(false);
-        } catch (SQLException e) {
-            System.err.println("Database connection failed: " + e.getMessage());
-        }
+    public static Connection getConnection() throws SQLException {
+        // Get connection from the pool
+        Connection conn = dataSource.getConnection();
+
+        // Optionally, disable auto-commit for manual transaction management
+        conn.setAutoCommit(false);  // Only do this if you plan on managing transactions manually
+
+        return conn;
     }
 
-    public static void closeConnection() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (SQLException e) {
-                System.err.println("Error closing connection: " + e.getMessage());
-            }
+    public static void closeConnection(Connection conn) throws SQLException {
+        // For connection pooling, it's better to return the connection to the pool instead of closing it.
+        if (conn != null && !conn.isClosed()) {
+            conn.close(); // Closing will return the connection to the pool
         }
     }
 
+    // To close the pool when your application ends
+    public static void shutdown() {
+        if (dataSource != null) {
+            dataSource.close();  // Ensure pool is properly shut down
+        }
+    }
 }

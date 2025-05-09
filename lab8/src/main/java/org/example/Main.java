@@ -1,24 +1,58 @@
 package org.example;
 
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Main {
     public static void main(String[] args) {
+        Connection connection = null;
+
         try {
-            var continents = new ContinentDAO();
-            continents.create("Europe");
-            Database.getConnection().commit();  // Commit after creating continent
+            // Get connection from Database class
+            connection = Database.getConnection();
 
-            var countries = new CountryDAO();
-            int europeId = continents.findByName("Europe");
-            countries.addCountry("Romania", "RO", europeId);
-            countries.addCountry("Italy", "IT", europeId);
-            Database.getConnection().commit();  // Commit after adding countries
+            // Disable auto-commit mode
+            connection.setAutoCommit(false);
 
-            Database.getConnection().close();  // Close connection when done
+            // Create a new continent
+            ContinentDAO continentDAO = new ContinentDAO();
+            continentDAO.create("Europe");
+
+            // Commit after creating continent
+            connection.commit();
+
+            // Add countries to Europe
+            CountryDAO countryDAO = new CountryDAO();
+            int europeId = continentDAO.findByName("Europe");
+            countryDAO.addCountry("Romania", "RO", europeId);
+            countryDAO.addCountry("Italy", "IT", europeId);
+
+            // Commit after adding countries
+            connection.commit();
+
+            // Insert cities for these countries
+            CityDAO cityDAO = new CityDAO();
+            City city1 = new City(0, "Bucharest", "Romania",44.4268, 26.1025); // Capital city
+            City city2 = new City(0, "Rome", "Italy", 41.9028, 12.4964); // Capital city
+
+            cityDAO.addCity(city1);
+            cityDAO.addCity(city2);
+
+            // Commit the transaction after adding cities
+            connection.commit();
+
+            // Close connection when done
+            connection.close();
 
         } catch (SQLException e) {
-            System.err.println(e);
+            System.err.println("Error: " + e);
+            try {
+                // Rollback the transaction in case of an error
+                if (connection != null) {
+                    connection.rollback();
+                }
+            } catch (SQLException ex) {
+                System.err.println("Error during rollback: " + ex);
+            }
         }
     }
 }
