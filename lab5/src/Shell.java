@@ -76,6 +76,14 @@ public class Shell {
                 command = new ReportCommand(repo);
                 break;
 
+            case "addAll":
+                if (!arguments.isEmpty()) {
+                    command = new AddAllCommand(repo, List.of(arguments));
+                } else {
+                    System.out.println("Usage: remove <dir_name>");
+                }
+                break;
+
             default:
                 System.out.println("Unknown command: " + commandName);
                 return;
