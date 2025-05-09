@@ -26,47 +26,40 @@ public class DrawingPanel extends JPanel {
         this.isPlayerTwoAI = isPlayerTwoAI;
         this.aiDifficulty = aiDifficulty;
 
-        // Reset the game state and start fresh
-        createDots(10); // Example: starting with 10 dots for simplicity
+        // Use the number of dots selected in the ConfigPanel spinner
+        int numDots = (Integer) frame.configPanel.spinner.getValue();
+        createDots(numDots);
     }
 
     public void aiMove() {
-        // Check if Player One AI's turn
         if (isPlayerOneAI && isPlayerOneTurn) {
-            makeAIMove(aiDifficulty, 0); // Make move for Player One AI (assuming 0 is Player One)
-            isPlayerOneTurn = false; // Switch turn to Player Two
-        }
-        // Check if Player Two AI's turn
-        else if (isPlayerTwoAI && !isPlayerOneTurn) {
-            makeAIMove(aiDifficulty, 1); // Make move for Player Two AI (assuming 1 is Player Two)
-            isPlayerOneTurn = true; // Switch turn to Player One
+            makeAIMove(aiDifficulty, 0);
+            isPlayerOneTurn = false;
+        } else if (isPlayerTwoAI && !isPlayerOneTurn) {
+            makeAIMove(aiDifficulty, 1);
+            isPlayerOneTurn = true;
         }
         repaint();
     }
 
-
     private void makeAIMove(String difficulty, int player) {
-        // AI move logic based on difficulty
         List<Point> aiPoints = new ArrayList<>(dots);
-        List<List<MST.Edge>> spanningTrees = MST.generateSpanningTrees(aiPoints, 5); // Generate 5 spanning trees
+        List<List<MST.Edge>> spanningTrees = MST.generateSpanningTrees(aiPoints, 5);
 
         List<MST.Edge> selectedTree;
 
-        // Select the AI strategy based on the difficulty
         if (difficulty.equals("Easy")) {
             selectedTree = MST.getWorstSpanningTree(spanningTrees, aiPoints);
         } else if (difficulty.equals("Medium")) {
-            selectedTree = MST.getBestSpanningTree(spanningTrees, aiPoints); // Medium: select a balanced tree
-        } else { // Hard: select the first tree (lowest cost)
+            selectedTree = MST.getBestSpanningTree(spanningTrees, aiPoints);
+        } else {
             selectedTree = MST.getBestSpanningTree(spanningTrees, aiPoints);
         }
 
-        // Make the AI move based on the selected tree
         for (MST.Edge edge : selectedTree) {
             lines.add(new Line(dots.get(edge.u), dots.get(edge.v), isPlayerOneTurn ? Color.BLUE : Color.RED));
         }
 
-        // Switch turns after AI move
         isPlayerOneTurn = !isPlayerOneTurn;
         repaint();
     }
@@ -86,10 +79,9 @@ public class DrawingPanel extends JPanel {
                     } else {
                         if (!selectedDot.equals(clicked)) {
                             lines.add(new Line(selectedDot, clicked, isPlayerOneTurn ? Color.BLUE : Color.RED));
-                            isPlayerOneTurn = !isPlayerOneTurn; // Switch turns
+                            isPlayerOneTurn = !isPlayerOneTurn;
                             repaint();
 
-                            // After player makes a move, AI makes its move
                             aiMove();
                         }
                         selectedDot = null;
@@ -130,19 +122,16 @@ public class DrawingPanel extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        // Draw lines
         for (Line line : lines) {
             g.setColor(line.color);
             g.drawLine(line.p1.x, line.p1.y, line.p2.x, line.p2.y);
         }
 
-        // Draw dots
         g.setColor(Color.BLACK);
         for (Point p : dots) {
             g.fillOval(p.x - 5, p.y - 5, 10, 10);
         }
 
-        // Highlight selected dot
         if (selectedDot != null) {
             g.setColor(Color.GREEN);
             g.drawOval(selectedDot.x - 7, selectedDot.y - 7, 14, 14);
@@ -163,24 +152,18 @@ public class DrawingPanel extends JPanel {
     }
 
     public void exportToPNG() {
-        // Create a BufferedImage to render the game board
         int width = getWidth();
         int height = getHeight();
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
-        // Create a Graphics2D object to render on the BufferedImage
         Graphics2D g2d = image.createGraphics();
-        // Set rendering hints for better quality
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 
-        // Render the panel's components (this calls the paintComponent method)
         paintComponent(g2d);
 
-        // Dispose the graphics object to release resources
         g2d.dispose();
 
-        // Save the image to a file
         try {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Save Image as PNG");
@@ -205,12 +188,10 @@ public class DrawingPanel extends JPanel {
                 .sum();
     }
 
-    // Calcularea scorului optim folosind MST
     public double getBestPossibleScore() {
         return MST.calculateMST(dots);
     }
 
-    // Compara scorul jucătorilor cu scorul optim
     public String compareScores() {
         double bestScore = getBestPossibleScore();
         double blueScore = getPlayerScore(Color.BLUE);

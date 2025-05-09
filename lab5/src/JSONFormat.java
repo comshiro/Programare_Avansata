@@ -1,6 +1,6 @@
 import java.io.File;
 import java.io.IOException;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JSONFormat implements RepositoryFormat {
 
@@ -8,11 +8,12 @@ public class JSONFormat implements RepositoryFormat {
 
     @Override
     public void save(Repository repo, String path) throws IOException {
-        objectMapper.writeValue(new File(path), repo);
+
     }
 
     @Override
-    public Repository load(String path) throws IOException {
-        return objectMapper.readValue(new File(path), Repository.class);
+    public Repository load(String path) throws IOException, ClassNotFoundException {
+        return null;
     }
+
 }

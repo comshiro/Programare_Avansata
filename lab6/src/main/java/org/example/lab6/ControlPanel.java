@@ -21,14 +21,12 @@ public class ControlPanel extends JPanel {
 
     private void init() {
         setLayout(new GridLayout(1, 6));
-
         add(loadBtn);
         add(saveBtn);
         add(resetBtn);
         add(exitBtn);
         add(compareScoresBtn);
         add(exportBtn);
-
 
         exitBtn.addActionListener(this::exitGame);
         resetBtn.addActionListener(this::resetGame);
@@ -38,7 +36,7 @@ public class ControlPanel extends JPanel {
         exportBtn.addActionListener(this::exportGame);
     }
 
-    private void exportGame(ActionEvent actionEvent) {
+    private void exportGame(ActionEvent e) {
         frame.canvas.exportToPNG();
     }
 
