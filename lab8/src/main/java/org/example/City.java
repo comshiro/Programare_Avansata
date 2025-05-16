@@ -3,13 +3,15 @@ package org.example;
 public class City extends BaseModel {
     private String country;
     private String name;
+    private boolean capital;
     private double latitude;
     private double longitude;
 
-    public City(int id, String country, String name, double latitude, double longitude) {
+    public City(int id, String country, String name, boolean capital, double latitude, double longitude) {
         this.setId(id);
         this.country = country;
         this.name = name;
+        this.capital = capital;
         this.latitude = latitude;
         this.longitude = longitude;
     }
@@ -29,6 +31,14 @@ public class City extends BaseModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isCapital() {
+        return capital;
+    }
+
+    public void setCapital(boolean capital) {
+        this.capital = capital;
     }
 
     public double getLatitude() {
