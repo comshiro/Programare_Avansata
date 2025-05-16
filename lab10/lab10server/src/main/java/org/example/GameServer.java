@@ -72,7 +72,6 @@ public class GameServer {
     public static void main(String[] args) {
         int port = 9090; // Default port
 
-        // Use command line argument for port if provided
         if (args.length > 0) {
             try {
                 port = Integer.parseInt(args[0]);
