@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class GameClient {
     private static final String SERVER_ADDRESS = "localhost";
-    private static final int SERVER_PORT = 8888;
+    private static final int SERVER_PORT = 9090;
 
     private Socket socket;
     private PrintWriter out;
