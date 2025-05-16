@@ -16,19 +16,11 @@ public class GameServer {
     private boolean running;
     private final ExecutorService threadPool;
 
-    /**
-     * Creates a new GameServer that will listen on the specified port.
-     *
-     * @param port The port number to listen on
-     */
     public GameServer(int port) {
         this.port = port;
         this.threadPool = Executors.newCachedThreadPool();
     }
 
-    /**
-     * Starts the server, making it listen for client connections.
-     */
     public void start() {
         try {
             serverSocket = new ServerSocket(port);
@@ -58,9 +50,6 @@ public class GameServer {
         }
     }
 
-    /**
-     * Stops the server and releases all resources.
-     */
     public void stop() {
         running = false;
         shutdown();
@@ -80,9 +69,6 @@ public class GameServer {
         LOGGER.info("Game server shutdown complete");
     }
 
-    /**
-     * Main method to start the GameServer.
-     */
     public static void main(String[] args) {
         int port = 9090; // Default port
 

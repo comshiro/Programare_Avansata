@@ -8,10 +8,6 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * A thread that handles communication with a single client.
- * Processes incoming commands and returns appropriate responses.
- */
 public class ClientThread implements Runnable {
     private static final Logger LOGGER = Logger.getLogger(ClientThread.class.getName());
 
@@ -19,11 +15,6 @@ public class ClientThread implements Runnable {
     private PrintWriter out;
     private BufferedReader in;
 
-    /**
-     * Creates a new ClientThread to handle communication with the specified client socket.
-     *
-     * @param clientSocket The socket connected to the client
-     */
     public ClientThread(Socket clientSocket) {
         this.clientSocket = clientSocket;
     }
@@ -58,12 +49,6 @@ public class ClientThread implements Runnable {
         }
     }
 
-    /**
-     * Processes the command received from the client and returns an appropriate response.
-     *
-     * @param command The command to process
-     * @return The response to send back to the client
-     */
     private String processCommand(String command) {
         if (command.equalsIgnoreCase("stop")) {
             // Notify GameServer to shut down (implementation detail)
@@ -75,19 +60,12 @@ public class ClientThread implements Runnable {
         }
     }
 
-    /**
-     * Signal to the GameServer to shut down.
-     * This method would be implemented based on how GameServer is designed to be stopped.
-     */
     private void shutdownServer() {
         // This implementation depends on how the GameServer is designed to be stopped
         // Could be through a shared flag, a method call, etc.
         LOGGER.info("Server shutdown initiated by client");
     }
 
-    /**
-     * Closes all open resources associated with this client connection.
-     */
     private void closeConnection() {
         try {
             if (out != null) {
