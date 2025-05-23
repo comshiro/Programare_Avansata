@@ -33,13 +33,10 @@ public class ClientThread implements Runnable {
             while ((inputLine = in.readLine()) != null) {
                 LOGGER.info("Received command: " + inputLine);
 
-                // Process the command
                 String response = processCommand(inputLine);
 
-                // Send response back to client
                 out.println(response);
 
-                // If the command was "stop", break the loop
                 if (inputLine.equalsIgnoreCase("stop")) {
                     break;
                 }
@@ -150,19 +147,18 @@ public class ClientThread implements Runnable {
                         // If next player is AI and game is not finished, make a single AI move
                         Player nextPlayer = game.getCurrentPlayer();
                         if (nextPlayer.getName().equals("AI") && !game.isFinished()) {
-                            Player aiPlayer = game.getCurrentPlayer();
-                            HexBoard.Cell aiColor = game.getPlayerColor(aiPlayer.getName());
+                            HexBoard.Cell aiColor = game.getPlayerColor(nextPlayer.getName()); // Use the color for the current AI player
                             HexAI ai = new HexAI();
                             int[] aiMove = ai.getMove(game.getHexBoard(), aiColor);
-                            if (aiMove != null && game.getHexBoard().isValidMove(aiMove[0], aiMove[1])) {
-                                int aiElapsed = 1;
-                                aiPlayer.decrementTime(aiElapsed);
-                                boolean aiValid = game.makeHexMove(aiPlayer.getName(), aiMove[0], aiMove[1]);
+                            if (aiMove != null && game.getHexBoard().isValidMove(aiMove[0], aiMove[1])) { // Ensure move is valid
+                                int aiElapsed = 1; // AI moves instantly for now
+                                nextPlayer.decrementTime(aiElapsed);
+                                boolean aiValid = game.makeHexMove(nextPlayer.getName(), aiMove[0], aiMove[1]);
                                 if (aiValid) {
                                     sb.append("AI moves at: ").append(aiMove[0]).append(",").append(aiMove[1]).append("\n");
-                                    sb.append(game.getHexBoard().toString());
+                                    sb.append(game.getHexBoard().toString()); // Show board after AI move
                                     if (game.isFinished()) {
-                                        sb.append("Player AI (").append(aiColor).append(") wins!\n");
+                                        sb.append("Player AI (" + aiColor + ") wins!\n");
                                         return sb.toString();
                                     }
                                 } else {

@@ -5,7 +5,6 @@ public class HexBoard {
     private final int size;
     private final Cell[][] board;
 
-    // Union-Find for efficient win checking
     private final int[] parent;
     private final int[] rank;
     private final int redTop, redBottom, blueLeft, blueRight;
@@ -78,7 +77,6 @@ public class HexBoard {
         return true;
     }
 
-    // Win check for RED (top-bottom) and BLUE (left-right) using Union-Find
     public boolean checkWin(Cell color) {
         if (color == Cell.RED) {
             return find(redTop) == find(redBottom);

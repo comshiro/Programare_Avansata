@@ -15,7 +15,7 @@ public class Game {
     private long lastMoveTimestamp = -1;
     private HexBoard hexBoard;
     private HashMap<String, HexBoard.Cell> playerColors = new HashMap<>();
-    private int boardSize = 7; // default Hex board size
+    private int boardSize = 7;
 
     public Game(String gameId, int initialTime) {
         this.gameId = gameId;
@@ -51,7 +51,6 @@ public class Game {
     public void addPlayer(Player player) {
         if (players.size() < 2 && !started) {
             players.add(player);
-            // Assign RED to first player, BLUE to second
             playerColors.put(player.getName(), players.size() == 1 ? HexBoard.Cell.RED : HexBoard.Cell.BLUE);
         }
     }
