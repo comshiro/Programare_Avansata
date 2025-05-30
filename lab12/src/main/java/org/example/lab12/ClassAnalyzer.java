@@ -20,7 +20,7 @@ public class ClassAnalyzer {
         System.out.println("\nInvoking static @Test methods with no arguments:");
         for (Method method : clasa.getDeclaredMethods()) {
             boolean hasTestAnnotation = Arrays.stream(method.getDeclaredAnnotations())
-                .anyMatch(a -> a.annotationType().getName().equals("org.junit.jupiter.api.Test"));
+                .anyMatch(a -> a.annotationType().getSimpleName().equals("Test"));
             if (Modifier.isStatic(method.getModifiers()) && method.getParameterCount() == 0 && hasTestAnnotation) {
                 System.out.println("Invoking: " + method.getName());
                 method.setAccessible(true);
