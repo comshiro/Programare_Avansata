@@ -11,14 +11,14 @@ public class ClassAnalyzer {
             return;
         }
         String className = args[0];
-        Class<?> clazz = Class.forName(className);
-        System.out.println("Class: " + clazz.getName());
+        Class<?> clasa = Class.forName(className);
+        System.out.println("Class: " + clasa.getName());
         System.out.println("Methods:");
-        for (Method method : clazz.getDeclaredMethods()) {
+        for (Method method : clasa.getDeclaredMethods()) {
             System.out.println("  " + Modifier.toString(method.getModifiers()) + " " + method.getReturnType().getSimpleName() + " " + method.getName() + Arrays.toString(method.getParameterTypes()));
         }
         System.out.println("\nInvoking static @Test methods with no arguments:");
-        for (Method method : clazz.getDeclaredMethods()) {
+        for (Method method : clasa.getDeclaredMethods()) {
             boolean hasTestAnnotation = Arrays.stream(method.getDeclaredAnnotations())
                 .anyMatch(a -> a.annotationType().getName().equals("org.junit.jupiter.api.Test"));
             if (Modifier.isStatic(method.getModifiers()) && method.getParameterCount() == 0 && hasTestAnnotation) {
