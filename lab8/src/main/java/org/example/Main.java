@@ -9,7 +9,7 @@ public class Main {
         try {
             connection = Database.getConnection();
 
-            // Create tables if not exist
+            // Create tables if they dont exist
             try {
                 Database.createCitiesTableIfNotExists();
                 Database.migrateCitiesTable();

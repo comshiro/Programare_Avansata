@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.entity.City;
+import org.example.entity.Country;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,27 +10,27 @@ import java.io.FileReader;
 
 public class CityDAO {
 
-    public boolean cityExists(String name, String country) throws SQLException {
+    public boolean cityExists(String name, String countryName) throws SQLException {
         String sql = "SELECT 1 FROM cities WHERE name = ? AND country = ? LIMIT 1";
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, name);
-            ps.setString(2, country);
+            ps.setString(2, countryName);
             ResultSet rs = ps.executeQuery();
             return rs.next();
         }
     }
 
     public void addCity(City city) throws SQLException {
-        if (cityExists(city.getName(), city.getCountry())) {
-            System.out.println("City '" + city.getName() + "' in '" + city.getCountry() + "' already exists.");
+        if (cityExists(city.getName(), city.getCountry().getName())) {
+            System.out.println("City '" + city.getName() + "' in '" + city.getCountry().getName() + "' already exists.");
             return;
         }
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement("INSERT INTO cities (name, country, capital, latitude, longitude) VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, city.getName());
-            ps.setString(2, city.getCountry());
+            ps.setString(2, city.getCountry().getName());
             ps.setBoolean(3, city.isCapital());
             ps.setDouble(4, city.getLatitude());
             ps.setDouble(5, city.getLongitude());
@@ -50,14 +52,17 @@ public class CityDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
+                Country country = new Country();
+                country.setName(rs.getString("country"));
                 city = new City(
-                        rs.getInt("id"),
-                        rs.getString("country"),
+                        country,
                         rs.getString("name"),
                         rs.getBoolean("capital"),
                         rs.getDouble("latitude"),
-                        rs.getDouble("longitude")
+                        rs.getDouble("longitude"),
+                        0 // population not available in this schema
                 );
+                city.setId(rs.getInt("id"));
             }
         }
         return city;
@@ -70,14 +75,17 @@ public class CityDAO {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
+                Country country = new Country();
+                country.setName(rs.getString("country"));
                 City city = new City(
-                        rs.getInt("id"),
-                        rs.getString("country"),
+                        country,
                         rs.getString("name"),
                         rs.getBoolean("capital"),
                         rs.getDouble("latitude"),
-                        rs.getDouble("longitude")
+                        rs.getDouble("longitude"),
+                        0 // population not available in this schema
                 );
+                city.setId(rs.getInt("id"));
                 cities.add(city);
             }
         }
@@ -88,7 +96,7 @@ public class CityDAO {
         String sql = "UPDATE cities SET country = ?, name = ?, capital = ?, latitude = ?, longitude = ? WHERE id = ?";
         try (Connection conn = Database.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setString(1, city.getCountry());
+            ps.setString(1, city.getCountry().getName());
             ps.setString(2, city.getName());
             ps.setBoolean(3, city.isCapital());
             ps.setDouble(4, city.getLatitude());
@@ -116,22 +124,20 @@ public class CityDAO {
                 if (isFirstLine) { isFirstLine = false; continue; } // skip header
                 String[] tokens = line.split(",");
                 if (tokens.length < 6) continue;
-                int id = 0; // ignore CSV id, let DB autoincrement
-                String country = tokens[1];
+                String countryName = tokens[1];
                 String name = tokens[2];
                 boolean capital = Boolean.parseBoolean(tokens[3]);
-                // Defensive: handle NULL or empty values in CSV
                 String latStr = tokens[4].trim();
                 String lonStr = tokens[5].trim();
-                // Skip if latitude or longitude is not a valid number
                 try {
                     if (latStr.equalsIgnoreCase("NULL") || latStr.isEmpty() || lonStr.equalsIgnoreCase("NULL") || lonStr.isEmpty()) continue;
                     double latitude = Double.parseDouble(latStr);
                     double longitude = Double.parseDouble(lonStr);
-                    City city = new City(id, country, name, capital, latitude, longitude);
+                    org.example.entity.Country countryObj = new org.example.entity.Country();
+                    countryObj.setName(countryName);
+                    City city = new City(countryObj, name, capital, latitude, longitude, 0); // population not available
                     cityDAO.addCity(city);
                 } catch (NumberFormatException e) {
-                    // Skip this row if lat/lon is not a valid number (e.g., 'GS', 'N/A', etc.)
                     continue;
                 }
             }

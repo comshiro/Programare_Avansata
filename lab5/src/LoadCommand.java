@@ -46,7 +46,7 @@ public class LoadCommand implements Command {
             } else {
                 System.out.println("Loaded images:");
                 for (Image image : repo.getImages()) {
-                    System.out.println(image);  // This will use the toString method of Image
+                    System.out.println(image);
                 }
             }
             return 0;

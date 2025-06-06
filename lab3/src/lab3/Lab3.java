@@ -49,8 +49,8 @@ public class Lab3 {
         Schedule schedule = new Schedule(airport);
         schedule.scheduleFlightsStartTime(flights);
 
-        System.out.println(schedule.getFlightMap());
-
+        //System.out.println(schedule.getFlightMap());
+        schedule.printRunwaySchedule();
     }
     
 }

@@ -1,6 +1,7 @@
 package org.example;
 
 import java.sql.*;
+import org.example.entity.Country;
 
 public class CountryDAO {
 
@@ -35,7 +36,11 @@ public class CountryDAO {
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                country = new Country(rs.getInt("id"), rs.getString("name"), rs.getString("code"), rs.getInt("continent_id"));
+                country = new Country();
+                country.setId(rs.getInt("id"));
+                country.setName(rs.getString("name"));
+                country.setCode(rs.getString("code"));
+                // continent_id can be set if you fetch the Continent entity as well
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -51,7 +56,11 @@ public class CountryDAO {
             ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                country = new Country(rs.getInt("id"), rs.getString("name"), rs.getString("code"), rs.getInt("continent_id"));
+                country = new Country();
+                country.setId(rs.getInt("id"));
+                country.setName(rs.getString("name"));
+                country.setCode(rs.getString("code"));
+                // continent_id can be set if you fetch the Continent entity as well
             }
         } catch (SQLException e) {
             e.printStackTrace();

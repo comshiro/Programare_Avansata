@@ -16,7 +16,7 @@ public class Bag {
     private void initializeTiles() {
         // Create 10 tiles for each letter (a-z) with random points (1-10)
         for (char c = 'a'; c <= 'z'; c++) {
-            int points = (int) (Math.random() * 10) + 1; // Random points between 1-10
+            int points = (int) (Math.random() * 10) + 1;
             for (int i = 0; i < 10; i++) {
                 tiles.add(new Tile(c, points));
             }

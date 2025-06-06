@@ -120,8 +120,7 @@ public class CityDAO {
                 String country = tokens[1];
                 String name = tokens[2];
                 boolean capital = Boolean.parseBoolean(tokens[3]);
-                // Defensive: handle NULL or empty values in CSV
-                String latStr = tokens[4].trim();
+                String latStr = tokens[4].trim();//hande null
                 String lonStr = tokens[5].trim();
                 // Skip if latitude or longitude is not a valid number
                 try {

@@ -34,17 +34,17 @@ public class ReportCommand implements Command {
     public int execute() {
         try {
             Configuration cfg = new Configuration(Configuration.VERSION_2_3_32);
-            cfg.setDirectoryForTemplateLoading(new File("resources/templates")); // Update path if necessary
+            cfg.setDirectoryForTemplateLoading(new File("resources/templates"));
             cfg.setDefaultEncoding("UTF-8");
 
-            // Step 2: Load template
+            // Load template
             Template template = cfg.getTemplate("report.ftl");
 
-            // Step 3: Prepare data
+            // Prepare data
             Map<String, Object> data = new HashMap<>();
             data.put("images", repo.getImages());
 
-            // Step 4: Generate HTML file
+            // Generate HTML file
             File output = new File("report.html");
             try (Writer writer = new FileWriter(output)) {
                 template.process(data, writer);
@@ -52,7 +52,7 @@ public class ReportCommand implements Command {
 
             System.out.println("Report generated: " + output.getAbsolutePath());
 
-            // Step 5: Open in browser
+            //Open in browser
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().browse(output.toURI());
             }

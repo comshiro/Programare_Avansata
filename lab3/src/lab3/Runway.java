@@ -10,7 +10,7 @@ import java.util.List;
  * mi s-a sugerat de IDE ca aceasta clasa sa fie record class
  *
  */
-class Runway implements Comparable<Runway> {
+public class Runway implements Comparable<Runway> {
     private final String id;
     private final List<Flight> scheduledFlights;
 

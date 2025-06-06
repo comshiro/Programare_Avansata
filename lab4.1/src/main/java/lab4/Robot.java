@@ -1,14 +1,13 @@
-package org.example;
+package lab4;
 
-public class Continent extends BaseModel {
+public class Robot {
+
     private String name;
 
-    public Continent(int id, String name) {
-        this.setId(id); //superclass method
+    public Robot(String name) {
         this.name = name;
     }
 
-    @Override
     public String getName() {
         return name;
     }
@@ -19,6 +18,6 @@ public class Continent extends BaseModel {
 
     @Override
     public String toString() {
-        return "Continent{id=" + getId() + ", name='" + name + "'}";
+        return name;
     }
 }

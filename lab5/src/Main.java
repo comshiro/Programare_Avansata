@@ -27,6 +27,5 @@ public class Main {
 
         Shell shell = new Shell(rep);
         shell.start();
-
     }
 }
